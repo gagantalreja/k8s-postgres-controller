@@ -2,9 +2,7 @@ FROM python:3.12-slim
 
 # Terraform version
 ARG TERRAFORM_VERSION=1.10.5
-COPY ./controller.py /app/controller.py
-COPY ./requirements.txt /app/requirements.txt
-COPY ./terraform /app/terraform
+COPY . /app/
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -21,8 +19,6 @@ RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/ter
     && rm terraform.zip
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 WORKDIR /app
-
-CMD ["python", "controller.py"]

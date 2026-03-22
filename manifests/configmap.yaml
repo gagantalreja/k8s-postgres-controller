@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sql-config
+  namespace: livedesign
+data:
+  users: |
+    [
+      {
+        "name": "gagantest-user",
+        "roles": ["rds_superuser", "rds_replication"],
+        "k8s_secret_options": {
+          "secret_name": "gagantest-user-auth",
+          "secret_namespace": "livedesign"
+        }
+      }
+    ]
+  databases: |
+    [
+      {
+        "name": "gagantest-db",
+        "owner": "gagantest-user"
+      }
+    ]
